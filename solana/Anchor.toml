@@ -1,0 +1,47 @@
+[toolchain]
+
+[features]
+seeds = true
+skip-lint = false
+
+[programs.localnet]
+auction_space = "E7ZeDdX2S941EaMtvvTcdK5ghJonB4PCLZ9MTdq2wvVA"
+
+[registry]
+url = "https://api.apr.dev"
+
+[provider]
+cluster = "Localnet"
+wallet = "~/.config/solana/id.json"
+
+[scripts]
+test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
+
+[test.validator]
+bind_address = "127.0.0.1"
+
+[test]
+startup_wait = 100000
+
+
+# [toolchain]
+
+# [features]
+# seeds = true
+# skip-lint = false
+
+# [programs.localnet]
+# auction_space = "41vpQQjubJn25HVHTLTt6YZViRM9hefnd9DJ1PXvt5NE"
+
+# [registry]
+# url = "https://api.apr.dev"
+
+# [provider]
+# cluster = "Localnet"
+# wallet = "/Users/devo/.config/solana/id.json"
+
+# [scripts]
+# test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
+
+# [test]
+# startup_wait = 100000

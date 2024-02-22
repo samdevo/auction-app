@@ -36,12 +36,12 @@ Thumbs.db
 # Next.js
 .next
 .anchor
-anchor/target/deploy
-anchor/target/debug
-anchor/target/release
-anchor/target/sbf-solana-solana
-anchor/target/.rustc_info.json
-!anchor/target/idl/*.json
-!anchor/target/types/*.ts
+solana/target/deploy
+solana/target/debug/*
+solana/target/release
+solana/target/sbf-solana-solana
+solana/target/.rustc_info.json
+!solana/target/idl/*.json
+!solana/target/types/*.ts
 test-ledger
 .yarn

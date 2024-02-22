@@ -1,0 +1,715 @@
+{
+  "version": "0.1.0",
+  "name": "auction_space",
+  "instructions": [
+    {
+      "name": "newPublisher",
+      "accounts": [
+        {
+          "name": "publisher",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "publisher"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "publisher_wallet"
+              }
+            ]
+          }
+        },
+        {
+          "name": "publisherWallet",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "newAdvertiser",
+      "accounts": [
+        {
+          "name": "advertiser",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "advertiser"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "advertiser_wallet"
+              }
+            ]
+          }
+        },
+        {
+          "name": "advertiserWallet",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "newAuction",
+      "accounts": [
+        {
+          "name": "auction",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "auction"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "publisher_wallet"
+              },
+              {
+                "kind": "account",
+                "type": "u64",
+                "account": "Publisher",
+                "path": "publisher.num_auctions"
+              }
+            ]
+          }
+        },
+        {
+          "name": "publisher",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "publisher"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "publisher_wallet"
+              }
+            ]
+          },
+          "relations": [
+            "publisher_wallet"
+          ]
+        },
+        {
+          "name": "publisherWallet",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "item",
+          "type": "publicKey"
+        },
+        {
+          "name": "minBid",
+          "type": "u64"
+        },
+        {
+          "name": "auctionStart",
+          "type": "u64"
+        },
+        {
+          "name": "auctionEnd",
+          "type": "u64"
+        },
+        {
+          "name": "effectStart",
+          "type": "u64"
+        },
+        {
+          "name": "effectEnd",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "newItem",
+      "accounts": [
+        {
+          "name": "item",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "item"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "publisher_wallet"
+              },
+              {
+                "kind": "account",
+                "type": "u64",
+                "account": "Publisher",
+                "path": "publisher.num_items"
+              }
+            ]
+          }
+        },
+        {
+          "name": "publisherWallet",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "publisher",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "publisher"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "publisher_wallet"
+              }
+            ]
+          },
+          "relations": [
+            "publisher_wallet"
+          ]
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "name": "url",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "bid",
+      "accounts": [
+        {
+          "name": "auction",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "auction"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "account": "Auction",
+                "path": "auction.publisher_wallet"
+              },
+              {
+                "kind": "account",
+                "type": "u64",
+                "account": "Auction",
+                "path": "auction.id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "advertiserWallet",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "prevBidderWallet",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "bidAmount",
+          "type": "u64"
+        },
+        {
+          "name": "adUrl",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "pubBackout",
+      "accounts": [
+        {
+          "name": "auction",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "auction"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "publisher_wallet"
+              },
+              {
+                "kind": "account",
+                "type": "u64",
+                "account": "Auction",
+                "path": "auction.id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "advertiserWallet",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "advertiser",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "advertiser"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "advertiser_wallet"
+              }
+            ]
+          }
+        },
+        {
+          "name": "publisher",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "publisher"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "publisher_wallet"
+              }
+            ]
+          }
+        },
+        {
+          "name": "publisherWallet",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "advBackout",
+      "accounts": [
+        {
+          "name": "auction",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "auction"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "publisher_wallet"
+              },
+              {
+                "kind": "account",
+                "type": "u64",
+                "account": "Auction",
+                "path": "auction.id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "advertiserWallet",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "advertiser",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "advertiser"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "advertiser_wallet"
+              }
+            ]
+          }
+        },
+        {
+          "name": "publisher",
+          "isMut": true,
+          "isSigner": false,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "type": "string",
+                "value": "publisher"
+              },
+              {
+                "kind": "account",
+                "type": "publicKey",
+                "path": "publisher_wallet"
+              }
+            ]
+          }
+        },
+        {
+          "name": "publisherWallet",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Advertiser",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "advertiserWallet",
+            "type": "publicKey"
+          },
+          {
+            "name": "numBids",
+            "type": "u64"
+          },
+          {
+            "name": "numAuctionsWon",
+            "type": "u64"
+          },
+          {
+            "name": "publisherBackouts",
+            "type": "u64"
+          },
+          {
+            "name": "advertiserBackouts",
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Auction",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "item",
+            "type": "publicKey"
+          },
+          {
+            "name": "minBid",
+            "type": "u64"
+          },
+          {
+            "name": "publisher",
+            "type": "publicKey"
+          },
+          {
+            "name": "publisherWallet",
+            "type": "publicKey"
+          },
+          {
+            "name": "curWinnerWallet",
+            "type": "publicKey"
+          },
+          {
+            "name": "curWinnerBid",
+            "type": "u64"
+          },
+          {
+            "name": "curWinnerAdUrl",
+            "type": "string"
+          },
+          {
+            "name": "startTime",
+            "type": "u64"
+          },
+          {
+            "name": "endTime",
+            "type": "u64"
+          },
+          {
+            "name": "effectStartTime",
+            "type": "u64"
+          },
+          {
+            "name": "effectEndTime",
+            "type": "u64"
+          },
+          {
+            "name": "active",
+            "type": "bool"
+          },
+          {
+            "name": "completed",
+            "type": "bool"
+          },
+          {
+            "name": "aborted",
+            "type": "bool"
+          },
+          {
+            "name": "abortedByPublisher",
+            "type": "bool"
+          },
+          {
+            "name": "abortedAt",
+            "type": "u64"
+          },
+          {
+            "name": "id",
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Item",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "name": "url",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "type": "u64"
+          },
+          {
+            "name": "numAuctions",
+            "type": "u64"
+          },
+          {
+            "name": "numAuctionsCompleted",
+            "type": "u64"
+          },
+          {
+            "name": "numAuctionsAborted",
+            "type": "u64"
+          },
+          {
+            "name": "publisher",
+            "type": "publicKey"
+          },
+          {
+            "name": "activeAuction",
+            "type": "publicKey"
+          },
+          {
+            "name": "activeUntil",
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Publisher",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "publisherWallet",
+            "type": "publicKey"
+          },
+          {
+            "name": "numAuctions",
+            "type": "u64"
+          },
+          {
+            "name": "numItems",
+            "type": "u64"
+          },
+          {
+            "name": "publisherBackouts",
+            "type": "u64"
+          },
+          {
+            "name": "advertiserBackouts",
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "TitleTooLong"
+    },
+    {
+      "code": 6001,
+      "name": "URLTooLong"
+    },
+    {
+      "code": 6002,
+      "name": "AuctionAlreadyActive"
+    },
+    {
+      "code": 6003,
+      "name": "AuctionNotActive"
+    },
+    {
+      "code": 6004,
+      "name": "NotHighestBid"
+    },
+    {
+      "code": 6005,
+      "name": "AuctionEndsBeforeStart"
+    },
+    {
+      "code": 6006,
+      "name": "AuctionEffectBeforeEnd"
+    },
+    {
+      "code": 6007,
+      "name": "AuctionEffectEndBeforeStart"
+    },
+    {
+      "code": 6008,
+      "name": "AuctionNotCompleted"
+    },
+    {
+      "code": 6009,
+      "name": "AuctionAborted"
+    },
+    {
+      "code": 6010,
+      "name": "AuctionAlreadyAborted"
+    },
+    {
+      "code": 6011,
+      "name": "AuctionAlreadyEnded"
+    },
+    {
+      "code": 6012,
+      "name": "WrongHighBidder"
+    },
+    {
+      "code": 6013,
+      "name": "BelowMinBid"
+    }
+  ],
+  "metadata": {
+    "address": "E7ZeDdX2S941EaMtvvTcdK5ghJonB4PCLZ9MTdq2wvVA"
+  }
+}

@@ -16,7 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./web/*"],
-      "@auction-app/anchor": ["anchor/src/index.ts"]
+      "@auction-app/solana": ["solana/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
