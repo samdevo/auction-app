@@ -1,8 +1,8 @@
 'use client';
 
-import { AuctionSpaceIDL, getAuctionSpaceProgramId } from '@auction-app/solana';
+import { AuctionSpaceIDL, getAuctionSpaceProgramId, AuctionSpaceSDK } from '@auction-app/solana';
 import { Program } from '@coral-xyz/anchor';
-import { useConnection } from '@solana/wallet-adapter-react';
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { Cluster, Keypair, PublicKey } from '@solana/web3.js';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
@@ -27,6 +27,9 @@ export function useAuctionSpaceProgram() {
     queryFn: () => connection.getParsedAccountInfo(programId),
   });
 
+
+
+  // const sdk = new AuctionSpaceSDK(connection, program)
   // const publishers = useQuery({
   //   queryKey: ['AuctionSpace', 'all', { cluster }],
   //   queryFn: () => program.account.auction.all(),
@@ -52,6 +55,54 @@ export function useAuctionSpaceProgram() {
     program,
     programId,
     getProgramAccount,
+  };
+}
+
+export function useAuctionSpaceInitMethods() {
+  const wallet = useWallet();
+  const { program } = useAuctionSpaceProgram();
+  const { connection } = useConnection();
+  const transactionToast = useTransactionToast();
+
+  if (!wallet.publicKey) {
+    throw new Error('Wallet required for useAuctionSpaceWithWallet');
+  }
+
+  const sdk = new AuctionSpaceSDK(connection, program, wallet);
+
+  const publisher = useQuery({
+    queryKey: ['publisher', 'fetch', wallet.publicKey],
+    queryFn: () => sdk.getPublisher(),
+  });
+
+  const newPublisher = useMutation({
+    mutationKey: ['publisher', 'create', wallet.publicKey],
+    mutationFn: () => sdk.newPublisher(),
+    onSuccess: (tx) => {
+      transactionToast(tx);
+      return publisher.refetch();
+    },
+  });
+
+  const advertiser = useQuery({
+    queryKey: ['advertiser', 'fetch', wallet.publicKey],
+    queryFn: () => sdk.getAdvertiser(),
+  });
+
+  const newAdvertiser = useMutation({
+    mutationKey: ['advertiser', 'create', wallet.publicKey],
+    mutationFn: () => sdk.newAdvertiser(),
+    onSuccess: (tx) => {
+      transactionToast(tx);
+      return advertiser.refetch();
+    },
+  });
+
+  return {
+    publisher,
+    newPublisher,
+    advertiser,
+    newAdvertiser,
   };
 }
 

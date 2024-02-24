@@ -62,7 +62,7 @@ export class AuctionSpaceSDK {
       [Buffer.from("publisher")],
       this.wallet.publicKey
     );
-    return this.program.account.publisher.fetch(pda);
+    return this.program.account.publisher.fetchNullable(pda);
   }
 
   getAdvertiser() {
@@ -73,7 +73,7 @@ export class AuctionSpaceSDK {
       [Buffer.from("advertiser")],
       this.wallet.publicKey
     );
-    return this.program.account.advertiser.fetch(pda);
+    return this.program.account.advertiser.fetchNullable(pda);
   }
 
   async newPublisher() {
