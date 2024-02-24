@@ -26,3 +26,16 @@ export function getAuctionSpaceProgramId(cluster: Cluster) {
       return AUCTION_SPACE_PROGRAM_ID;
   }
 }
+
+
+
+// get all accouts of type Publisher
+export function getPublishers(program: AuctionSpaceProgram) {
+  return program.account.publisher.all();
+}
+
+export function getPublisher(program: AuctionSpaceProgram, publicKey: PublicKey) {
+  return program.account.publisher.fetchNullable(publicKey);
+}
+
+// export f

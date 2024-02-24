@@ -14,7 +14,7 @@ import { useTransactionToast } from '../ui/ui-layout';
 export function useAuctionSpaceProgram() {
   const { connection } = useConnection();
   const { cluster } = useCluster();
-  const transactionToast = useTransactionToast();
+  // const transactionToast = useTransactionToast();
   const provider = useAnchorProvider();
   const programId = useMemo(
     () => getAuctionSpaceProgramId(cluster.network as Cluster),
@@ -22,37 +22,36 @@ export function useAuctionSpaceProgram() {
   );
   const program = new Program(AuctionSpaceIDL, programId, provider);
 
-  const accounts = useQuery({
-    queryKey: ['AuctionSpace', 'all', { cluster }],
-    queryFn: () => program.account.auction.all(),
-  });
-
   const getProgramAccount = useQuery({
     queryKey: ['get-program-account', { cluster }],
     queryFn: () => connection.getParsedAccountInfo(programId),
   });
 
-  const initialize = useMutation({
-    mutationKey: ['counter', 'initialize', { cluster }],
-    mutationFn: (keypair: Keypair) =>
-      program.methods
-        .newPublisher()
-        .accounts({ publisherWallet: keypair.publicKey })
-        .signers([keypair])
-        .rpc(),
-    onSuccess: (signature) => {
-      transactionToast(signature);
-      return accounts.refetch();
-    },
-    onError: () => toast.error('Failed to initialize publisher'),
-  });
+  // const publishers = useQuery({
+  //   queryKey: ['AuctionSpace', 'all', { cluster }],
+  //   queryFn: () => program.account.auction.all(),
+  // });
+
+  // const items = useQuery({
+  //   queryKey: ['AuctionSpace', 'all', { cluster }],
+  //   queryFn: (ownedByPubKey) => {
+  //     return program.account.item.all([
+  //       {
+  //         memcmp: {
+  //           "offset": 0,
+  //           "bytes": ownedByPubKey.toBase58(),
+  //         }
+  //       }
+  //     ])
+  //   },
+  // });
+
+  // const initAdvertiser
 
   return {
     program,
     programId,
-    accounts,
     getProgramAccount,
-    initialize,
   };
 }
 

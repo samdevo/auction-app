@@ -10,7 +10,10 @@ import {
 } from './auction-space-data-access';
 
 export function AuctionSpaceCreate() {
-  const { initialize } = useAuctionSpaceProgram();
+  const { initPublisher } = useAuctionSpaceProgram();
+
+
+  const initialize = initPublisher;// FIXME
 
   return (
     <button
