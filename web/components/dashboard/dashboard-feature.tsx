@@ -2,37 +2,17 @@
 
 import { AppHero } from '../ui/ui-layout';
 
-const links: { label: string; href: string }[] = [
-  { label: 'Solana Docs', href: 'https://docs.solana.com/' },
-  { label: 'Solana Faucet', href: 'https://faucet.solana.com/' },
-  { label: 'Solana Cookbook', href: 'https://solanacookbook.com/' },
-  { label: 'Solana Stack Overflow', href: 'https://solana.stackexchange.com/' },
-  {
-    label: 'Solana Developers GitHub',
-    href: 'https://github.com/solana-developers/',
-  },
-];
 
 export default function DashboardFeature() {
   return (
-    <div>
-      <AppHero title="gm" subtitle="Say hi to your new Solana dApp." />
-      <div className="max-w-xl mx-auto py-6 sm:px-6 lg:px-8 text-center">
-        <div className="space-y-2">
-          <p>Here are some helpful links to get you started.</p>
-          {links.map((link, index) => (
-            <div key={index}>
-              <a
-                href={link.href}
-                className="link"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {link.label}
-              </a>
-            </div>
-          ))}
+    <div className = "w-full flex h-full justify-center p-20">
+      {/* <AppHero title="Auction Space" subtitle="Maximize Your Advertising Spend" /> */}
+
+      <div className="mockup-browser border border-base-300">
+        <div className="mockup-browser-toolbar">
+          <div className="input border border-base-300">https://daisyui.com</div>
         </div>
+        <div className="flex justify-center px-4 py-16 border-t border-base-300">Hello!</div>
       </div>
     </div>
   );
