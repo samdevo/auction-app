@@ -17,8 +17,10 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const pages: { label: string; path: string }[] = [
   { label: 'Account', path: '/account' },
-  { label: 'Clusters', path: '/clusters' },
-  { label: 'Counter', path: '/counter' },
+  // { label: 'Clusters', path: '/clusters' },
+  // { label: 'Counter', path: '/counter' },
+  { label: 'Publisher ', path: '/publisher'},
+  { label: 'Advertiser', path: '/advertiser '}
 ];
 
 export function UiLayout({ children }: { children: ReactNode }) {
