@@ -2,7 +2,7 @@
 
 import { AuctionSpaceIDL, getAuctionSpaceProgramId, AuctionSpaceSDK } from '@auction-app/solana';
 import { Program } from '@coral-xyz/anchor';
-import { useConnection, useWallet } from '@solana/wallet-adapter-react';
+import { WalletContextState, useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { Cluster, Keypair, PublicKey } from '@solana/web3.js';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
